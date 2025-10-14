@@ -119,7 +119,8 @@ internal static class BuilderPatch
     [HarmonyPrefix, HarmonyWrapSafe]
     public static void EndResetConstructablesPrefix()
     {
-        foreach (var key in ConstructablePatch.constructableDistances.Keys.Where(k => k == null))
+        var nullKeys = ConstructablePatch.constructableDistances.Keys.Where(k => k == null).ToList();
+        foreach (var key in nullKeys)
         {
             ConstructablePatch.constructableDistances.Remove(key);
         }
