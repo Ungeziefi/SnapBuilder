@@ -14,7 +14,7 @@ internal class ControlHint
 
     private static string GetDisplayText(KeyCode keyCode) => Utils.KeyCode.ToString(keyCode) switch
     {
-        string name when !string.IsNullOrEmpty(name) => uGUI.GetDisplayTextForBinding(name),
+        string name when !string.IsNullOrEmpty(name) => name,
         _ => NoInputAssigned
     };
     private static string GetDisplayText(IEnumerable<KeyCode> keyCodes) => string.Join(" + ", keyCodes.Select(keyCode => GetDisplayText(keyCode)));
@@ -29,7 +29,7 @@ internal class ControlHint
     public static string Get(string hint, KeyCode keyCode) => $"{hint} ({FormatButton(keyCode)})";
     public static string Get(string hint, KeyCode keyCode1, KeyCode keyCode2) => $"{hint} ({FormatButton(keyCode1)} / {FormatButton(keyCode2)})";
     public static string Get(string hint, IEnumerable<KeyCode> keyCodes) => $"{hint} ({FormatButton(keyCodes)})";
-    public static string Get(string hint, GameInput.Button button) => $"{hint} ({uGUI.FormatButton(button, true, ", ", false)})";
+    public static string Get(string hint, GameInput.Button button) => $"{hint} ({GameInput.FormatButton(button, false)})";
 
     public static void Show(string hint, Toggle toggle) => ErrorMessage.AddMessage(Get(hint, toggle));
     public static void Show(string hint, KeyCode keyCode) => ErrorMessage.AddMessage(Get(hint, keyCode));
